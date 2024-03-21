@@ -23,7 +23,7 @@ func TestLimiterClient_Check(t *testing.T) {
 		}
 	}()
 
-	limiterClient := New(
+	floodLimiter := New(
 		Deps{
 			RedisClient: redisClient,
 		},
@@ -34,7 +34,7 @@ func TestLimiterClient_Check(t *testing.T) {
 		})
 
 	for i := 0; i < 50; i++ {
-		if result, err := limiterClient.Check(ctx, 1); err != nil {
+		if result, err := floodLimiter.Check(ctx, 1); err != nil {
 			t.Logf("Error while performing rate limit check: %v\n", err)
 		} else {
 			if result == true {

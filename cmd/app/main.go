@@ -25,7 +25,7 @@ func main() {
 		}
 	}()
 
-	limiterClient := ratelimiter.New(
+	floodLimiter := ratelimiter.New(
 		ratelimiter.Deps{
 			RedisClient: redisClient,
 		},
@@ -37,7 +37,7 @@ func main() {
 	)
 
 	for i := 0; i < 50; i++ {
-		if result, err := limiterClient.Check(ctx, 1); err != nil {
+		if result, err := floodLimiter.Check(ctx, 1); err != nil {
 			log.Printf("Error while performing rate limit check: %v\n", err)
 		} else {
 			if result == true {

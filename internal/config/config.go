@@ -24,6 +24,7 @@ func NewConfig() *Config {
 		viper.SetDefault("RATE", 16)
 		viper.SetDefault("WINDOW", "8s")
 	}
+
 	return &Config{
 		RedisAddr: viper.GetString("REDIS_ADDR"),
 		Burst:     viper.GetInt64("BURST"),
